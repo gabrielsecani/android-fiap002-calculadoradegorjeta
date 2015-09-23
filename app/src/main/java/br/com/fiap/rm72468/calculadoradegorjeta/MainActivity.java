@@ -4,15 +4,52 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import java.text.NumberFormat;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    //formatadores
+    NumberFormat formatadorDePorcentagem = NumberFormat.getPercentInstance();
+    //NumberFormat formatadorDeMoeda = NumberFormat.getCurrencyInstance();
+
+    //variaveis de componente de tela
+    private SeekBar seekBar;
+    private TextView lblPorcentagemVariavel;
+
+    private double porcentagemVariavel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        lblPorcentagemVariavel = (TextView)findViewById(R.id.lblPorcentagemVariavel);
+        porcentagemVariavel = 18;
+        seekBar = (SeekBar)findViewById(R.id.seekBar);
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                porcentagemVariavel = progress/100.0;
+                lblPorcentagemVariavel.setText(formatadorDePorcentagem.format(porcentagemVariavel));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
+
 
 
     @Override
